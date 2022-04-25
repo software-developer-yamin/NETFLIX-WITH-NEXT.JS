@@ -25,7 +25,7 @@ const Header = () => {
     <header className={`${isScrolled && 'bg-[#141414]'}`}>
       <section className="flex items-center space-x-2 md:space-x-10">
         <img
-          src="https://rb.gy/ulxxee"
+          src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
           width={100}
           height={100}
           className="cursor-pointer object-contain"
