@@ -1,8 +1,13 @@
-import type { GetServerSideProps } from 'next'
 import Head from 'next/head'
+import { useRecoilValue } from 'recoil'
+import { modalState, movieState } from '../atoms/modalAtom'
 import Banner from '../components/Banner'
 import Header from '../components/Header'
+import Modal from '../components/Modal'
+
 import Row from '../components/Row'
+import useAuth from '../hooks/useAuth'
+
 import { Movie } from '../typings'
 import requests from '../utils/requests'
 
@@ -27,17 +32,30 @@ const Home = ({
   topRated,
   trendingNow,
 }: Props) => {
+  const { user, loading } = useAuth()
+  const showModal = useRecoilValue(modalState)
+  const movie = useRecoilValue(movieState)
+
+  if (loading) return null
+
   return (
-    <section
-      className={`relative h-screen bg-gradient-to-b from-gray-900/10 to-[#010511] lg:h-[140vh]`}
+    <div
+      className={`relative h-screen bg-gradient-to-b from-gray-900/10 to-[#010511] lg:h-[140vh] ${
+        showModal && '!h-screen overflow-hidden'
+      }`}
     >
       <Head>
-        <title>Home - Netflix</title>
+        <title>
+          {movie?.title || movie?.original_name || 'Home'} - Netflix
+        </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <Header />
-      <main className="relative pl-4 pb-24 lg:space-y-24 lg:pl-16">
+
+      <main className="relative pl-4 pb-24 lg:space-y-24 lg:pl-16 ">
         <Banner netflixOriginals={netflixOriginals} />
+
         <section className="md:space-y-24">
           <Row title="Trending Now" movies={trendingNow} />
           <Row title="Top Rated" movies={topRated} />
@@ -50,13 +68,14 @@ const Home = ({
           <Row title="Documentaries" movies={documentaries} />
         </section>
       </main>
-    </section>
+      {showModal && <Modal />}
+    </div>
   )
 }
 
 export default Home
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps = async () => {
   const [
     netflixOriginals,
     trendingNow,
