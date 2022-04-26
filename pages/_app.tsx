@@ -4,11 +4,12 @@ import { AuthProvider } from '../hooks/useAuth'
 import { RecoilRoot } from 'recoil'
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const AnyComponent = Component as any;
   return (
     <RecoilRoot>
       {/* Higher Order Component */}
       <AuthProvider>
-        <Component {...pageProps} />
+        <AnyComponent {...pageProps} />
       </AuthProvider>
     </RecoilRoot>
   )
