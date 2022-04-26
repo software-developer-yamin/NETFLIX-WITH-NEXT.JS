@@ -18,7 +18,9 @@ import {
 import { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { FaPlay } from 'react-icons/fa'
-import ReactPlayer from 'react-player/lazy'
+import { default as _ReactPlayer } from 'react-player'
+import { ReactPlayerProps } from 'react-player/types/lib'
+const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>
 import { useRecoilState } from 'recoil'
 import { modalState, movieState } from '../atoms/modalAtom'
 import { db } from '../firebase'
