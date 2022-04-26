@@ -4,7 +4,7 @@ import {
   ThumbUpIcon,
   VolumeOffIcon,
   VolumeUpIcon,
-  XIcon
+  XIcon,
 } from '@heroicons/react/outline'
 import MuiModal from '@mui/material/Modal'
 import {
@@ -13,19 +13,19 @@ import {
   doc,
   DocumentData,
   onSnapshot,
-  setDoc
+  setDoc,
 } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { FaPlay } from 'react-icons/fa'
-import { default as _ReactPlayer } from 'react-player'
+import { default as _ReactPlayer } from 'react-player/lazy'
 import { ReactPlayerProps } from 'react-player/types/lib'
-const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>
 import { useRecoilState } from 'recoil'
 import { modalState, movieState } from '../atoms/modalAtom'
 import { db } from '../firebase'
 import useAuth from '../hooks/useAuth'
 import { Element, Genre, Movie } from '../typings'
+const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>
 
 function Modal() {
   const [movie, setMovie] = useRecoilState(movieState)
